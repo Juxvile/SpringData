@@ -3,6 +3,7 @@ package app.springData.services;
 import app.springData.domain.User;
 import app.springData.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +31,22 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(Long id) {
-        return null;
+        String query = "SELECT FROM Users WHERE Id=?";
+        User foundUser = jdbcTemplate.queryForObject(query, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
+        return foundUser;
     }
 
     @Override
-    public Integer updateUser(User user) {
-        return null;
+    public Integer updateUser(User user, Long id) {
+        String query = "UPDATE User SET Email='" + user.getEmail() + "', password='" + user.getPassword() + "' WHERE id=" + id;
+        int result = jdbcTemplate.update(query);
+        return result;
     }
 
     @Override
     public Integer deleteUser(Long id) {
-        return null;
+        String query = "DELETE User WHERE id=" + id;
+        int result = jdbcTemplate.update(query);
+        return result;
     }
 }
