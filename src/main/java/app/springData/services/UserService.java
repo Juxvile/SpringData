@@ -31,7 +31,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(Long id) {
-        String query = "SELECT FROM Users WHERE Id=?";
+        String query = "SELECT * FROM Users WHERE Id=?";
         User foundUser = jdbcTemplate.queryForObject(query, new Object[]{id}, new BeanPropertyRowMapper<>(User.class));
         return foundUser;
     }
@@ -45,7 +45,7 @@ public class UserService implements IUserService {
 
     @Override
     public Integer deleteUser(Long id) {
-        String query = "DELETE User WHERE id=" + id;
+        String query = "DELETE FROM Users WHERE id=" + id;
         int result = jdbcTemplate.update(query);
         return result;
     }
