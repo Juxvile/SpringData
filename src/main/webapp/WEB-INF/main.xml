@@ -14,11 +14,11 @@
     <context:component-scan base-package="app.springData"/>
     <mvc:annotation-driven/>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:mem:database"/>
-        <property name="username" value="sa"/>
-        <property name="password" value=""/>
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/SpringData"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

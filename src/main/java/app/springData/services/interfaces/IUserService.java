@@ -1,4 +1,4 @@
-package app.springData.services;
+package app.springData.services.interfaces;
 
 import app.springData.domain.User;
 
@@ -7,4 +7,5 @@ public interface IUserService {
     User getUser(Long id);
     Integer updateUser(User user);
     Integer deleteUser (Long id);
+    void createTableUser();
 }
