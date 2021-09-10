@@ -4,45 +4,51 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Entity
 @Data
-@Table(name = "_user")
+@Entity
+@Table(name = "_USER")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = true )
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "_user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Todo> todoList = new HashSet<>();
 
-    public void addTodo (Todo todo){
+    public Set<Todo> getTodoList() {
+        return todoList;
+    }
+
+    public void addTodo(Todo todo) {
         addTodo(todo, false);
     }
 
-    public void removeTodo (Todo todo){
-        removeTodo(todo, false);
-    }
-
-    public void addTodo (Todo todo, Boolean otherSideHasBeenSet){
+    public void addTodo(Todo todo, boolean otherSideHasBeenSet) {
         this.getTodoList().add(todo);
-        if(otherSideHasBeenSet){
+        if(otherSideHasBeenSet) {
             return;
         }
         todo.setUser(this, true);
     }
 
-    public void removeTodo (Todo todo, Boolean otherSideHasBeenSet){
+    public void removeTodo(Todo todo) {
+        removeTodo(todo, false);
+    }
+
+    public void removeTodo(Todo todo, boolean otherSideHasBeenSet) {
         this.getTodoList().remove(todo);
-        if(otherSideHasBeenSet){
+        if(otherSideHasBeenSet) {
             return;
         }
         todo.removeUser(this, true);
