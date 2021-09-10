@@ -7,5 +7,4 @@ public interface IUserService {
     User getUser(Long id);
     Integer updateUser(User user, Long id);
     Integer deleteUser (Long id);
-    void createTableUser();
 }

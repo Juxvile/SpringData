@@ -1,12 +1,21 @@
 package app.springData.domain;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-@Component
+import javax.persistence.*;
+
+@Entity
 @Data
+@Table(name = "_user")
 public class User {
-    Long id;
-    String email;
-    String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = true )
+    private String password;
 }
