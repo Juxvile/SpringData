@@ -1,5 +1,6 @@
 package app.springData.controllers;
 
+import app.springData.domain.Todo;
 import app.springData.domain.User;
 import app.springData.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class UserController {
     @PostMapping(path = "/user")
     public ResponseEntity<User> createUser(@RequestBody User user){
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/todo")
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo){
+        return new ResponseEntity<>(todo, HttpStatus.OK);
     }
 
 }
