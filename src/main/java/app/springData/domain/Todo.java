@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,10 +35,15 @@ public class Todo {
     private Boolean important;
 
     @Column(name = "priority")
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
+    @ManyToMany
+    @JoinTable(name = "todo_tag", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tagList = new HashSet<>();
+
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public void setUser(User user){
